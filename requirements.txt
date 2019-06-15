@@ -1,0 +1,6 @@
+aiohttp
+yarl
+
+pytest
+pytest-aiohttp
+arsenic

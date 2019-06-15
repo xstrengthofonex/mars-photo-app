@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Mars Photos API</title>
+    <link rel="stylesheet" type="text/css" href="/static/app.css">
+    <script type="application/javascript" src="/static/app.js"></script>
+</head>
+<body>
+    <div id="contents">
+        <h1 id="title">Mars Photo API</h1>
+        <h2 id="subtitle">Curiosity</h2>
+        <div id="errors"></div>
+        <div class="form" id="search_form">
+            <div class="form_group">
+                <label for="sol_input">Sol</label>
+                <input type="text" class="input" id="sol_input">
+            </div>
+            <div class="form_group">
+                <label for="camera_input">Camera</label>
+                <select class="input" id="camera_input">
+                    <option selected value="">Any</option>
+                    <option value="fhaz">Front Hazard Avoidance Camera</option>
+                    <option value="rhaz">Rear Hazard Avoidance Camera</option>
+                    <option value="mazt">Mast Camera</option>
+                    <option value="chemcam">Chemistry and Camera Complex</option>
+                    <option value="mahli">Mars Hand Lens Imager</option>
+                    <option value="mardi">Mars Descent Imager</option>
+                    <option value="navcam">Navigation Camera</option>
+                </select>
+            </div>
+            <div>
+                <button id="submit_btn">Find Photos</button>
+            </div>
+        </div>
+        <div id="status"></div>
+        <div id="photos"></div>
+        <div id="load_more"></div>
+    </div>
+</body>
+</html>

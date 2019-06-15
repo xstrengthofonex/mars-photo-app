@@ -1,0 +1,18 @@
+from typing import List, Dict
+
+import aiohttp
+from yarl import URL
+
+
+class ServiceTimeout(RuntimeError):
+    pass
+
+
+async def get_photos(sol: str, camera: str) -> List[Dict[str, str]]:
+    url = URL("https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos")
+    url = url.update_query(dict(sol=sol, camera=camera, page=1)) if camera else url.update_query(dict(sol=sol, page=1))
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            data = await response.json()
+            results = [dict(src=photo.get("img_src")) for photo in data.get("photos")]
+    return results
