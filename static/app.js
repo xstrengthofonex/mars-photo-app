@@ -26,18 +26,24 @@ document.addEventListener("DOMContentLoaded", () => {
     function handleClickSubmitBtn(state){
         let errors = validateInput();
         if (errors.length === 0){
-            document.querySelector("#photos").innerHTML = "";
-            document.querySelector("#errors").innerHTML = "";
-            state.page = 0;
-            hideLoadMore();
+            initialize();
             getPhotos();
         } else {
             renderErrors(errors);
         }
     }
 
+    function initialize(){
+        document.querySelector("#photos").innerHTML = "";
+        document.querySelector("#errors").innerHTML = "";
+        state.page = 1;
+        hideLoadMore();
+    }
+
     function getPhotos(){
-        let queryString = `sol=${encodeURIComponent(state.sol)}&camera=${encodeURIComponent(state.camera)}`
+        let queryString = `sol=${encodeURIComponent(state.sol)}`;
+        queryString += `&camera=${encodeURIComponent(state.camera)}`;
+        queryString += `&page=${encodeURIComponent(state.page)}`;
         let request = new Request("/api/photos?" + queryString);
         renderStatus("Loading Images");
         fetch(request)
