@@ -16,6 +16,5 @@ async def get_photos(sol: str, camera: str, page: str) -> List[Dict[str, str]]:
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             data = await response.json()
-            print(data)
             results = [dict(src=photo.get("img_src")) for photo in data.get("photos")]
     return results

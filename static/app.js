@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function handleGetPhotosJson(json){
         if (json == null){
         } else if (json.length === 0){
+            hideLoadMore();
             renderStatus("No Photos Found");
         } else {
             renderPhotoPage(json);
@@ -96,7 +97,9 @@ document.addEventListener("DOMContentLoaded", () => {
         json.forEach((photo) => {
             photos.appendChild(createPhotoElement(photo.src));
         });
-        if (json.length === 25) {
+        if (json.length < 25) {
+            hideLoadMore();
+        } else {
             showLoadMore();
         }
     }
