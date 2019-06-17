@@ -3,8 +3,12 @@ import os
 import pytest
 from aiohttp import web
 from arsenic import start_session, services, browsers, stop_session
+from asynctest import Mock
 
 from mars_photo.app import create_app
+from mars_photo.http_client import HTTPClient
+from mars_photo.services import MarsPhotoService
+
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 CHROME_DRIVER_FILENAME = "chromedriver.exe"
@@ -14,8 +18,23 @@ SERVER_ADDRESS = f"http://{HOST}:{PORT}"
 
 
 @pytest.fixture
-def app():
-    return create_app()
+def mock_http_client():
+    return Mock(HTTPClient)
+
+
+@pytest.fixture
+def mock_service():
+    return Mock(MarsPhotoService)
+
+
+@pytest.fixture
+def app(mock_service):
+    return create_app(service=mock_service)
+
+
+@pytest.fixture
+def client(loop, app, aiohttp_client):
+    return loop.run_until_complete(aiohttp_client(app))
 
 
 @pytest.fixture

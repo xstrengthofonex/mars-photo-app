@@ -8,7 +8,8 @@ IMAGE_SRCS = [
 ]
 
 
-async def test_should_find_photos_given_valid_input(session):
+async def test_should_find_photos_given_valid_input(session, mock_service):
+    mock_service.get_photos.return_value = [dict(src=IMAGE_SRCS[0]), dict(src=IMAGE_SRCS[1])]
     await session.get("/")
     sol_input = await session.get_element("#sol_input")
     await sol_input.send_keys("1000")

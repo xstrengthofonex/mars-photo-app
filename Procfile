@@ -1,1 +1,1 @@
-web: python -m mars_photo.main
+web: python -m mars_photo

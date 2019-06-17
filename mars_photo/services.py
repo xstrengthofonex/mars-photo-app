@@ -1,20 +1,44 @@
+from dataclasses import dataclass
 from typing import List, Dict
 
-import aiohttp
 from yarl import URL
 
+from mars_photo.http_client import HTTPClientTimeout
 
-class ServiceTimeout(RuntimeError):
+
+class ServiceUnavailable(RuntimeError):
     pass
 
 
-async def get_photos(sol: str, camera: str, page: str) -> List[Dict[str, str]]:
-    url = URL("https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos")
-    url = url.update_query(dict(sol=sol, page=page))
-    if camera:
-        url = url.update_query(dict(camera=camera))
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
-            data = await response.json()
+class InvalidGetPhotosRequest(RuntimeError):
+    pass
+
+
+@dataclass(frozen=True)
+class GetPhotosRequest:
+    sol: str = ""
+    page: str = ""
+    camera: str = ""
+
+
+class MarsPhotoService:
+    def __init__(self, http_client):
+        self.http_client = http_client
+
+    async def get_photos(self, request: GetPhotosRequest) -> List[Dict[str, str]]:
+        try:
+            response = await self.http_client.get(self.create_url_from_request(request))
+            data = response.json()
             results = [dict(src=photo.get("img_src")) for photo in data.get("photos")]
-    return results
+            return results
+        except HTTPClientTimeout:
+            raise ServiceUnavailable
+
+    @staticmethod
+    def create_url_from_request(request):
+        url = URL("https://mars-photos.herokuapp.com/api/v1/rovers/curiosity/photos")
+        url = url.update_query(dict(sol=request.sol, page=request.page))
+        if request.camera:
+            url = url.update_query(dict(camera=request.camera))
+        return str(url)
+

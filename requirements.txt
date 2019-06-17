@@ -4,3 +4,4 @@ yarl
 pytest
 pytest-aiohttp
 arsenic
+asynctest
