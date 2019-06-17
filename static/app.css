@@ -1,7 +1,7 @@
 body {
     font-family: sans-serif;
-    color: #444;
-    background: url("/static/images/mars-rover.jpg") no-repeat fixed;
+    color: #451804;
+
 }
 
 #contents {
@@ -12,33 +12,22 @@ body {
     text-align: center;
     font-size: 50px;
     font-family: 'Orbitron', sans-serif;
-    color: #fff;
+    color: #c1440e;
 }
 
 #subtitle {
     text-align: center;
-    color: #fff;
 }
 
 #photos {
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
 #load_more {
     display: none;
     text-align: center;
-}
-
-.load_more_btn {
-    margin: 10px;
-    background-color: #487eb0;
-    color: #fff;
-    font-size: 14px;
-    padding: 10px 14px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
 }
 
 .photo {
@@ -49,16 +38,14 @@ body {
     display: flex;
     flex-direction: column;
     max-width: 500px;
-    background: linear-gradient(
-        rgba(44,62,80 ,0.5),
-        rgba(44,62,80 ,0.5));
+    background-color: #f0e7e7;
     padding: 30px;
     margin: 20px auto;
     border-radius: 4px;
 }
 
 label {
-    color: #fff;
+    color: #451804;
     margin-bottom: 4px;
 }
 
@@ -70,6 +57,7 @@ label {
     padding: 10px;
     font-size: 14px;
     width: auto;
+    outline: none;
 }
 
 .form_group {
@@ -78,21 +66,23 @@ label {
     margin-bottom: 12px;
 }
 
-#submit_btn {
-    background-color: #e84118;
+button {
+    background-color: #e77d11;
     color: #fff;
     font-size: 14px;
     padding: 12px 16px;
     border: none;
-    border-radius: 6px;
+    border-radius: 4px;
     cursor: pointer;
-    display: block;
     margin: 0 auto;
+    display: block;
+    outline: none;
 }
 
-#submit_btn:hover {
-    background-color: #c23616;
+button:hover {
+    background-color: #fda600;
 }
+
 
 @media only screen and (max-width: 1000px) {
   .photo {
