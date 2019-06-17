@@ -1,4 +1,4 @@
-from mars_photo.services import InvalidGetPhotosRequest, ServiceUnavailable, GetPhotosRequest
+from mars_photo.services import ServiceUnavailable, GetPhotosRequest
 
 
 async def test_should_get_photos_should_be_called_with_correct_args(client, mock_service):

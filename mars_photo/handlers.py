@@ -3,7 +3,7 @@ import os
 from aiohttp import web
 
 import settings
-from mars_photo.services import ServiceUnavailable, InvalidGetPhotosRequest, GetPhotosRequest
+from mars_photo.services import ServiceUnavailable, GetPhotosRequest
 
 
 async def index_handler(request):

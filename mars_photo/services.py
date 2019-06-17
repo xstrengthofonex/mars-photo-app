@@ -10,10 +10,6 @@ class ServiceUnavailable(RuntimeError):
     pass
 
 
-class InvalidGetPhotosRequest(RuntimeError):
-    pass
-
-
 @dataclass(frozen=True)
 class GetPhotosRequest:
     sol: str = ""
