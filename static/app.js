@@ -92,14 +92,14 @@ document.addEventListener("DOMContentLoaded", () => {
         loadMore.appendChild(loadMoreBtn);
     }
 
-    function renderPhotoPage(json){
-        let photos = document.querySelector("#photos");
+    function renderPhotoPage(photos){
+        let photoContainer = document.querySelector("#photos");
         let messages = document.querySelector("#status");
         messages.innerHTML= "";
-        json.forEach((photo) => {
-            photos.appendChild(createPhotoElement(photo.src));
+        photos.forEach((photo) => {
+            photoContainer.appendChild(createPhotoElement(photo.src));
         });
-        if (json.length < 25) {
+        if (photos.length < 25) {
             hideLoadMore();
         } else {
             showLoadMore();
