@@ -12,11 +12,11 @@
     <div id="contents">
         <h1 id="title">Mars Photo API</h1>
         <h2 id="subtitle">Curiosity</h2>
-        <div class="form" id="search_form">
+        <form class="form" id="search_form">
             <div id="errors"></div>
             <div class="form_group">
-                <label for="sol_input">Sol</label>
-                <input type="number" class="input" id="sol_input" min="0">
+                <label for="sol_input">Sol (Mars Solar Day)</label>
+                <input type="number" class="input" id="sol_input" min="0" max="2000" required autofocus>
             </div>
             <div class="form_group">
                 <label for="camera_input">Camera</label>
@@ -32,9 +32,9 @@
                 </select>
             </div>
             <div>
-                <button id="submit_btn">Find Photos</button>
+                <button type="submit" id="submit_btn">Find Photos</button>
             </div>
-        </div>
+        </form>
         <div id="status"></div>
         <div id="photos"></div>
         <div id="load_more"></div>

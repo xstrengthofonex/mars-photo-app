@@ -3,7 +3,7 @@ import os
 from aiohttp import web
 
 import settings
-from mars_photo.services import ServiceUnavailable, GetPhotosRequest
+from mars_photo.services import ServiceUnavailable, GetPhotosRequest, InvalidGetPhotosRequest
 
 
 async def index_handler(request):
@@ -18,6 +18,8 @@ async def photos_handler(request: web.Request):
         page=request.rel_url.query.get("page", "1"))
     try:
         photos = await services.get_photos(get_photos_request)
+    except InvalidGetPhotosRequest as e:
+        photos = []
     except ServiceUnavailable as e:
         return web.json_response(dict(errors=e.args), status=408)
     return web.json_response(photos)

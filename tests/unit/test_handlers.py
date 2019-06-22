@@ -1,4 +1,4 @@
-from mars_photo.services import ServiceUnavailable, GetPhotosRequest
+from mars_photo.services import ServiceUnavailable, GetPhotosRequest, InvalidGetPhotosRequest
 
 
 async def test_should_get_photos_should_be_called_with_correct_args(client, mock_service):
@@ -27,3 +27,11 @@ async def test_should_return_408_if_the_client_times_out(client, mock_service):
     body = await response.json()
     assert error_message in body.get("errors")
 
+
+async def test_should_return_blank_list_if_request_data_is_invalid(client, mock_service):
+    mock_service.get_photos.side_effect = InvalidGetPhotosRequest
+    response = await client.get("api/photos?sol=100000000000000000")
+    assert response.status == 200
+    assert response.content_type == "application/json"
+    body = await response.json()
+    assert body == []

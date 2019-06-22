@@ -5,11 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
         page: 1
     };
 
-    let submitBtn = document.querySelector("#submit_btn");
+    let searchForm = document.querySelector("#search_form");
     let solInput = document.querySelector("#sol_input");
     let cameraInput = document.querySelector("#camera_input");
     solInput.setAttribute("value", state.sol);
-    submitBtn.addEventListener("click", handleClickSubmitBtn.bind(null, state));
+    searchForm.addEventListener("submit", handleFormSubmit.bind(null, state));
     solInput.addEventListener("change", handleSolInputChange.bind(null, state));
     cameraInput.addEventListener("change", handleCameraInputChange.bind(null, state));
     renderLoadMore();
@@ -23,7 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
         state.camera = event.target.value;
     }
 
-    function handleClickSubmitBtn(state){
+    function handleFormSubmit(state, event){
+        console.log(event);
+        event.preventDefault();
         let errors = validateInput();
         if (errors.length === 0){
             initialize();

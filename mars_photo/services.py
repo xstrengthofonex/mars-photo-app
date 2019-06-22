@@ -10,6 +10,10 @@ class ServiceUnavailable(RuntimeError):
     pass
 
 
+class InvalidGetPhotosRequest(RuntimeError):
+    pass
+
+
 @dataclass(frozen=True)
 class GetPhotosRequest:
     sol: str = ""
@@ -22,6 +26,7 @@ class MarsPhotoService:
         self.http_client = http_client
 
     async def get_photos(self, request: GetPhotosRequest) -> List[Dict[str, str]]:
+        self.validate_request(request)
         try:
             response = await self.http_client.get(self.create_url_from_request(request))
             data = response.json()
@@ -38,3 +43,9 @@ class MarsPhotoService:
             url = url.update_query(dict(camera=request.camera))
         return str(url)
 
+    @staticmethod
+    def validate_request(request):
+        if request.sol.isnumeric():
+            sol_int = int(request.sol)
+            if sol_int < 0 or sol_int > 2000:
+                raise InvalidGetPhotosRequest
